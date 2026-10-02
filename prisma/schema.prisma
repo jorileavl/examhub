@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  UTILISATEUR
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum StatutCompte {
+  EN_ATTENTE
+  VALIDE
+  REJETE
+  BLOQUE
+}
+
+enum StatutEpreuve {
+  EN_ATTENTE
+  VALIDEE
+  REJETEE
+}
+
+enum Niveau {
+  CI
+  CP
+  CE1
+  CE2
+  CM1
+  CM2
+  SIXIEME
+  CINQUIEME
+  QUATRIEME
+  TROISIEME
+  SECONDE
+  PREMIERE
+  TERMINALE
+  UNIVERSITE
+  CONCOURS
+  EXAMEN_NATIONAL
+}
+
+enum TypeDocument {
+  EPREUVE
+  COURS
+  EXAMEN
+  CONCOURS
+}
+
+model User {
+  id            String        @id @default(cuid())
+  nom           String
+  email         String        @unique
+  motDePasse    String
+  role          Role          @default(UTILISATEUR)
+  statutCompte  StatutCompte  @default(EN_ATTENTE)
+  motifRejet    String?
+  epreuves      Epreuve[]
+  createdAt     DateTime      @default(now())
+}
+
+model Epreuve {
+  id          String         @id @default(cuid())
+  titre       String
+  type        TypeDocument   @default(EPREUVE)
+  niveau      Niveau
+  filiere     String?
+  matiere     String
+  annee       Int
+  fichierUrl  String
+  statut      StatutEpreuve  @default(EN_ATTENTE)
+  motifRejet  String?
+  auteur      User           @relation(fields: [auteurId], references: [id])
+  auteurId    String
+  createdAt   DateTime       @default(now())
+}
