@@ -1,6 +1,7 @@
 ﻿import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
+import { verifierBlocageConnexion, enregistrerEchecConnexion, reinitialiserTentativesConnexion } from "./rateLimiter";
 
 export const authOptions = {
   providers: [
@@ -11,17 +12,30 @@ export const authOptions = {
         motDePasse: { label: "Mot de passe", type: "password" },
       },
       async authorize(credentials) {
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        });
-        if (!user) throw new Error("Utilisateur introuvable");
+        const email = (credentials.email || "").toString().trim().toLowerCase();
+
+        const blocage = verifierBlocageConnexion(email);
+        if (blocage.bloque) {
+          throw new Error("Trop de tentatives. Reessayez dans " + blocage.minutesRestantes + " minute(s)");
+        }
+
+        const user = await prisma.user.findUnique({ where: { email } });
+        if (!user) {
+          enregistrerEchecConnexion(email);
+          throw new Error("Identifiants incorrects");
+        }
 
         const valide = await bcrypt.compare(credentials.motDePasse, user.motDePasse);
-        if (!valide) throw new Error("Mot de passe incorrect");
+        if (!valide) {
+          enregistrerEchecConnexion(email);
+          throw new Error("Identifiants incorrects");
+        }
 
         if (user.statutCompte === "BLOQUE") {
           throw new Error("Votre compte a ete bloque");
         }
+
+        reinitialiserTentativesConnexion(email);
 
         return {
           id: user.id,
