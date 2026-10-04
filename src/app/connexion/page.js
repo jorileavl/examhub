@@ -56,6 +56,9 @@ export default function Connexion() {
             {voirMotDePasse ? "Cacher" : "Voir"}
           </button>
         </div>
+        <div className="text-right">
+          <a href="/mot-de-passe-oublie" className="text-sm text-blue-600 underline">Mot de passe oublie ?</a>
+        </div>
         <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700">Se connecter</button>
         {erreur && <p className="text-sm text-red-600">{erreur}</p>}
       </form>

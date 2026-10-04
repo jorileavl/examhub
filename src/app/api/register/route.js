@@ -1,6 +1,7 @@
 ﻿import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { verifierLimiteRequetes } from "@/lib/rateLimiter";
+import { envoyerEmailBienvenue } from "@/lib/mailer";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -36,6 +37,12 @@ export async function POST(req) {
   const user = await prisma.user.create({
     data: { nom, email, motDePasse: hash },
   });
+
+  try {
+    await envoyerEmailBienvenue(email, nom);
+  } catch (err) {
+    console.error("Erreur envoi email de bienvenue:", err.message);
+  }
 
   return Response.json({ message: "Compte cree, en attente de validation", userId: user.id });
 }

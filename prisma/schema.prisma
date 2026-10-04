@@ -53,15 +53,17 @@ enum TypeDocument {
 }
 
 model User {
-  id            String        @id @default(cuid())
-  nom           String
-  email         String        @unique
-  motDePasse    String
-  role          Role          @default(UTILISATEUR)
-  statutCompte  StatutCompte  @default(EN_ATTENTE)
-  motifRejet    String?
-  epreuves      Epreuve[]
-  createdAt     DateTime      @default(now())
+  id                String        @id @default(cuid())
+  nom               String
+  email             String        @unique
+  motDePasse        String
+  role              Role          @default(UTILISATEUR)
+  statutCompte      StatutCompte  @default(EN_ATTENTE)
+  motifRejet        String?
+  tokenReset        String?
+  tokenResetExpire  DateTime?
+  epreuves          Epreuve[]
+  createdAt         DateTime      @default(now())
 }
 
 model Epreuve {
