@@ -1,4 +1,4 @@
-﻿import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
@@ -23,5 +23,5 @@ export async function POST(req, context) {
     },
   });
 
-  return Response.json({ message: "Compte mis a jour", user });
+  return Response.json({ message: "Compte mis a jour" });
 }

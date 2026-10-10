@@ -1,7 +1,7 @@
-﻿import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { VALEURS_NIVEAU, VALEURS_TYPE, NIVEAUX_ACADEMIQUES, FILIERES } from "@/lib/constantes";
+import { VALEURS_NIVEAU, VALEURS_TYPE, NIVEAUX_ACADEMIQUES, FILIERES, filiereValidePourNiveau } from "@/lib/constantes";
 
 export async function PUT(req, context) {
   const session = await getServerSession(authOptions);
@@ -34,7 +34,7 @@ export async function PUT(req, context) {
   if (!annee || annee < 1990 || annee > 2100) {
     return Response.json({ erreur: "Annee invalide" }, { status: 400 });
   }
-  if (NIVEAUX_ACADEMIQUES.includes(niveau) && !FILIERES.includes(filiere)) {
+  if (NIVEAUX_ACADEMIQUES.includes(niveau) && !filiereValidePourNiveau(niveau, filiere)) {
     return Response.json({ erreur: "Choisissez une filiere dans la liste" }, { status: 400 });
   }
   if (filiere.length > 80) {

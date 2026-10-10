@@ -12,12 +12,13 @@ export async function GET() {
 
   const epreuves = await prisma.epreuve.findMany({
     where: { statut: "EN_ATTENTE" },
-    include: { auteur: true },
+    include: { auteur: { select: { nom: true, email: true, filiere: true } } },
     orderBy: { createdAt: "asc" },
   });
 
   const utilisateurs = await prisma.user.findMany({
     where: { statutCompte: "EN_ATTENTE" },
+    select: { id: true, nom: true, email: true, filiere: true, createdAt: true },
     orderBy: { createdAt: "asc" },
   });
 

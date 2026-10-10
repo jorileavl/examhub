@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { NIVEAUX, NIVEAUX_ACADEMIQUES, FILIERES, LABELS_NIVEAU } from "@/lib/constantes";
+import { NIVEAUX, NIVEAUX_ACADEMIQUES, filieresPourNiveau, LABELS_NIVEAU } from "@/lib/constantes";
 
 export default function Admin() {
   const { data: session, status } = useSession();
@@ -123,7 +123,7 @@ export default function Admin() {
                     {NIVEAUX_ACADEMIQUES.includes(formEdition.niveau) ? (
                       <select className="border p-2 rounded" value={formEdition.filiere} onChange={(e) => setFormEdition({ ...formEdition, filiere: e.target.value })}>
                         <option value="">Choisir la filiere</option>
-                        {FILIERES.map((f) => (
+                        {filieresPourNiveau(formEdition.niveau).map((f) => (
                           <option key={f} value={f}>{f}</option>
                         ))}
                       </select>
@@ -184,7 +184,7 @@ export default function Admin() {
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="font-medium">{u.nom}</p>
-                    <p className="text-sm text-gray-500">{u.email}</p>
+                    <p className="text-sm text-gray-500">{u.email}{u.filiere ? " - " + u.filiere : ""}</p>
                   </div>
                   <div className="flex gap-2">
                     <button onClick={() => traiterUtilisateur(u.id, "VALIDE")} className="bg-green-600 text-white px-3 py-1 rounded">Valider</button>

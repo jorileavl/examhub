@@ -1,4 +1,4 @@
-﻿import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
@@ -20,5 +20,5 @@ export async function POST(req, context) {
     data: { role },
   });
 
-  return Response.json({ message: "Role mis a jour", user });
+  return Response.json({ message: "Role mis a jour" });
 }

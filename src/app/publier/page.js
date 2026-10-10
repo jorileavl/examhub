@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
-import { NIVEAUX, NIVEAUX_ACADEMIQUES, FILIERES, TYPES_DOCUMENT, LABELS_NIVEAU } from "@/lib/constantes";
+import { NIVEAUX, NIVEAUX_ACADEMIQUES, filieresPourNiveau, TYPES_DOCUMENT, LABELS_NIVEAU } from "@/lib/constantes";
 
 export default function Publier() {
   const [message, setMessage] = useState("");
@@ -60,9 +60,9 @@ export default function Publier() {
           ))}
         </select>
         {filiereObligatoire && (
-          <select name="filiere" className="border p-2 w-full rounded" required defaultValue="">
+          <select key={niveau.startsWith("LICENCE") ? "licence" : "master"} name="filiere" className="border p-2 w-full rounded" required defaultValue="">
             <option value="" disabled>Choisir la filiere</option>
-            {FILIERES.map((f) => (
+            {filieresPourNiveau(niveau).map((f) => (
               <option key={f} value={f}>{f}</option>
             ))}
           </select>

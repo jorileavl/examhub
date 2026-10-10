@@ -1,4 +1,21 @@
-﻿import { FILIERES } from "@/lib/constantes";
+﻿import {
+  FILIERES_LICENCE_TERTIAIRES,
+  FILIERES_LICENCE_INDUSTRIELLES,
+  FILIERES_LICENCE,
+  FILIERES_MASTER,
+} from "@/lib/constantes";
+
+function Pastilles({ liste }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {liste.map((f) => (
+        <a key={f} href="/epreuves" className="bg-white border border-gray-200 rounded-full px-4 py-2 text-sm shadow-sm transition-all duration-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 hover:-translate-y-1 hover:shadow-lg">
+          {f}
+        </a>
+      ))}
+    </div>
+  );
+}
 
 export default function Home() {
   const parcours = [
@@ -44,9 +61,9 @@ export default function Home() {
       <section className="max-w-5xl mx-auto px-6 -mt-2 pb-4">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
           {[
-            { chiffre: String(FILIERES.length), label: "Filieres" },
+            { chiffre: String(FILIERES_LICENCE.length), label: "Licences" },
+            { chiffre: String(FILIERES_MASTER.length), label: "Masters" },
             { chiffre: "5", label: "Niveaux (L1 a M2)" },
-            { chiffre: "7", label: "Campus" },
             { chiffre: "100%", label: "Gratuit" },
           ].map((stat) => (
             <div key={stat.label} className="group cursor-default p-3 rounded-xl hover:bg-blue-50 transition-all duration-300">
@@ -80,16 +97,21 @@ export default function Home() {
       </section>
 
       <section className="bg-gray-50 py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-3">Les filieres</h2>
-          <p className="text-gray-500 text-center mb-12 max-w-xl mx-auto">Chaque filiere dispose de ses propres epreuves et cours.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {FILIERES.map((f) => (
-              <a key={f} href="/epreuves" className="group bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-blue-300 transition-all duration-300">
-                <p className="font-semibold group-hover:text-blue-700 transition-colors duration-300">{f}</p>
-                <p className="text-sm text-gray-400 mt-1 group-hover:translate-x-1 transition-transform duration-300">Voir les epreuves -&gt;</p>
-              </a>
-            ))}
+        <div className="max-w-6xl mx-auto px-6 space-y-12">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold mb-3">Les filieres de HECM</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">Retrouvez les epreuves de votre filiere, en Licence comme en Master.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold">Licences professionnelles <span className="text-gray-400 font-normal">(Bac+3)</span></h3>
+            <p className="text-sm font-medium text-blue-700 mt-5 mb-3">Filieres tertiaires</p>
+            <Pastilles liste={FILIERES_LICENCE_TERTIAIRES} />
+            <p className="text-sm font-medium text-blue-700 mt-6 mb-3">Filieres industrielles</p>
+            <Pastilles liste={FILIERES_LICENCE_INDUSTRIELLES} />
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold mb-4">Masters <span className="text-gray-400 font-normal">(Bac+5)</span></h3>
+            <Pastilles liste={FILIERES_MASTER} />
           </div>
         </div>
       </section>

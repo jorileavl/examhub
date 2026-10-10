@@ -1,10 +1,10 @@
-﻿export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import cloudinary from "@/lib/cloudinary";
-import { VALEURS_NIVEAU, VALEURS_TYPE, NIVEAUX_ACADEMIQUES, FILIERES } from "@/lib/constantes";
+import { VALEURS_NIVEAU, VALEURS_TYPE, NIVEAUX_ACADEMIQUES, FILIERES, filiereValidePourNiveau } from "@/lib/constantes";
 
 const TAILLE_MAX = 10 * 1024 * 1024;
 const TYPES_AUTORISES = [
@@ -52,7 +52,7 @@ export async function POST(req) {
   if (!annee || annee < 1990 || annee > 2100) {
     return Response.json({ erreur: "Annee invalide" }, { status: 400 });
   }
-  if (NIVEAUX_ACADEMIQUES.includes(niveau) && !FILIERES.includes(filiere)) {
+  if (NIVEAUX_ACADEMIQUES.includes(niveau) && !filiereValidePourNiveau(niveau, filiere)) {
     return Response.json({ erreur: "Choisissez une filiere dans la liste" }, { status: 400 });
   }
   if (filiere.length > 80) {

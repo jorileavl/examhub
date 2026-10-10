@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 
@@ -8,7 +8,7 @@ export default function Navbar() {
 
   return (
     <nav className="border-b px-6 py-4 flex justify-between items-center">
-      <Link href="/" className="font-bold text-lg">examHub</Link>
+      <Link href="/" className="font-bold text-lg">ExamHECM</Link>
       <div className="flex gap-4 items-center text-sm">
         <Link href="/epreuves">Epreuves</Link>
         {status === "authenticated" ? (

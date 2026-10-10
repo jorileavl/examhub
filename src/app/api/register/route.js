@@ -2,6 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { verifierLimiteRequetes } from "@/lib/rateLimiter";
 import { envoyerEmailBienvenue } from "@/lib/mailer";
+import { FILIERES } from "@/lib/constantes";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -16,6 +17,7 @@ export async function POST(req) {
   const nom = (body.nom || "").toString().trim();
   const email = (body.email || "").toString().trim().toLowerCase();
   const motDePasse = (body.motDePasse || "").toString();
+  const filiere = (body.filiere || "").toString().trim();
 
   if (!nom || nom.length < 2 || nom.length > 100) {
     return Response.json({ erreur: "Le nom doit contenir entre 2 et 100 caracteres" }, { status: 400 });
@@ -26,6 +28,9 @@ export async function POST(req) {
   if (motDePasse.length < 8 || motDePasse.length > 200) {
     return Response.json({ erreur: "Le mot de passe doit contenir au moins 8 caracteres" }, { status: 400 });
   }
+  if (!FILIERES.includes(filiere)) {
+    return Response.json({ erreur: "Choisissez votre filiere dans la liste" }, { status: 400 });
+  }
 
   const existant = await prisma.user.findUnique({ where: { email } });
   if (existant) {
@@ -35,7 +40,7 @@ export async function POST(req) {
   const hash = await bcrypt.hash(motDePasse, 10);
 
   const user = await prisma.user.create({
-    data: { nom, email, motDePasse: hash },
+    data: { nom, email, motDePasse: hash, filiere },
   });
 
   try {

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
@@ -95,7 +95,7 @@ export default function AdminUtilisateurs() {
                 {u.role === "ADMIN" && <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">ADMIN</span>}
                 <span className={"ml-2 text-xs px-2 py-0.5 rounded " + badgeCouleur(u.statutCompte)}>{u.statutCompte}</span>
               </p>
-              <p className="text-sm text-gray-500">{u.email} - {u.epreuves.length} epreuve(s)</p>
+              <p className="text-sm text-gray-500">{u.email}{u.filiere ? " - " + u.filiere : ""} - {u.epreuves.length} epreuve(s)</p>
             </div>
             {estSuperAdmin && (
               <div className="flex gap-2 flex-wrap justify-end">
