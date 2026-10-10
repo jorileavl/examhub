@@ -4,16 +4,14 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import cloudinary from "@/lib/cloudinary";
+import { VALEURS_NIVEAU, VALEURS_TYPE, NIVEAUX_ACADEMIQUES, FILIERES } from "@/lib/constantes";
 
-const TAILLE_MAX = 10 * 1024 * 1024; // 10 Mo
+const TAILLE_MAX = 10 * 1024 * 1024;
 const TYPES_AUTORISES = [
   "application/pdf",
   "application/msword",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
-
-const NIVEAUX_VALIDES = ["CI","CP","CE1","CE2","CM1","CM2","SIXIEME","CINQUIEME","QUATRIEME","TROISIEME","SECONDE","PREMIERE","TERMINALE","UNIVERSITE","CONCOURS","EXAMEN_NATIONAL"];
-const TYPES_VALIDES = ["EPREUVE","COURS","EXAMEN","CONCOURS"];
 
 export async function POST(req) {
   const session = await getServerSession(authOptions);
@@ -28,8 +26,7 @@ export async function POST(req) {
   const niveau = (formData.get("niveau") || "").toString();
   const filiere = (formData.get("filiere") || "").toString().trim();
   const matiere = (formData.get("matiere") || "").toString().trim();
-  const anneeRaw = formData.get("annee");
-  const annee = parseInt(anneeRaw);
+  const annee = parseInt(formData.get("annee"));
 
   if (!fichier || typeof fichier === "string") {
     return Response.json({ erreur: "Fichier manquant" }, { status: 400 });
@@ -46,14 +43,17 @@ export async function POST(req) {
   if (!matiere || matiere.length < 2 || matiere.length > 80) {
     return Response.json({ erreur: "La matiere doit contenir entre 2 et 80 caracteres" }, { status: 400 });
   }
-  if (!NIVEAUX_VALIDES.includes(niveau)) {
+  if (!VALEURS_NIVEAU.includes(niveau)) {
     return Response.json({ erreur: "Niveau invalide" }, { status: 400 });
   }
-  if (!TYPES_VALIDES.includes(type)) {
+  if (!VALEURS_TYPE.includes(type)) {
     return Response.json({ erreur: "Type invalide" }, { status: 400 });
   }
   if (!annee || annee < 1990 || annee > 2100) {
     return Response.json({ erreur: "Annee invalide" }, { status: 400 });
+  }
+  if (NIVEAUX_ACADEMIQUES.includes(niveau) && !FILIERES.includes(filiere)) {
+    return Response.json({ erreur: "Choisissez une filiere dans la liste" }, { status: 400 });
   }
   if (filiere.length > 80) {
     return Response.json({ erreur: "Filiere trop longue" }, { status: 400 });

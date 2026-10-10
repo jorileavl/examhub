@@ -2,13 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
-
-const LABELS_NIVEAU = {
-  CI: "CI", CP: "CP", CE1: "CE1", CE2: "CE2", CM1: "CM1", CM2: "CM2",
-  SIXIEME: "6eme", CINQUIEME: "5eme", QUATRIEME: "4eme", TROISIEME: "3eme",
-  SECONDE: "Seconde", PREMIERE: "Premiere", TERMINALE: "Terminale",
-  UNIVERSITE: "Universite", CONCOURS: "Concours", EXAMEN_NATIONAL: "Examen national",
-};
+import { LABELS_NIVEAU } from "@/lib/constantes";
 
 export default function DetailEpreuve() {
   const { id } = useParams();
@@ -38,7 +32,8 @@ export default function DetailEpreuve() {
       <a href="/epreuves" className="text-blue-600 underline text-sm">Retour aux epreuves</a>
 
       <h1 className="text-2xl font-bold mt-4 mb-2">{epreuve.titre}</h1>
-      <p className="text-gray-600 mb-1">{LABELS_NIVEAU[epreuve.niveau] || epreuve.niveau} - {epreuve.matiere} - {epreuve.annee}{epreuve.filiere ? " - " + epreuve.filiere : ""}</p>
+      <p className="text-gray-600 mb-1">{LABELS_NIVEAU[epreuve.niveau] || epreuve.niveau} - {epreuve.matiere} - {epreuve.annee}</p>
+      {epreuve.filiere && <p className="text-gray-600 mb-1">Filiere : {epreuve.filiere}</p>}
       <p className="text-sm text-gray-400 mb-6">Ajoute par {epreuve.auteur?.nom || "un membre"}</p>
 
       {status === "authenticated" ? (

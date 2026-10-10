@@ -1,6 +1,7 @@
 ﻿"use client";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { NIVEAUX, NIVEAUX_ACADEMIQUES, FILIERES, LABELS_NIVEAU } from "@/lib/constantes";
 
 export default function Admin() {
   const { data: session, status } = useSession();
@@ -113,9 +114,22 @@ export default function Admin() {
                   <input className="border p-2 w-full rounded" value={formEdition.titre} onChange={(e) => setFormEdition({ ...formEdition, titre: e.target.value })} placeholder="Titre" />
                   <div className="grid grid-cols-2 gap-2">
                     <input className="border p-2 rounded" value={formEdition.matiere} onChange={(e) => setFormEdition({ ...formEdition, matiere: e.target.value })} placeholder="Matiere" />
-                    <input className="border p-2 rounded" value={formEdition.niveau} onChange={(e) => setFormEdition({ ...formEdition, niveau: e.target.value })} placeholder="Niveau" />
-                    <input className="border p-2 rounded" value={formEdition.filiere} onChange={(e) => setFormEdition({ ...formEdition, filiere: e.target.value })} placeholder="Filiere" />
                     <input className="border p-2 rounded" type="number" value={formEdition.annee} onChange={(e) => setFormEdition({ ...formEdition, annee: e.target.value })} placeholder="Annee" />
+                    <select className="border p-2 rounded" value={formEdition.niveau} onChange={(e) => setFormEdition({ ...formEdition, niveau: e.target.value })}>
+                      {NIVEAUX.map((n) => (
+                        <option key={n.valeur} value={n.valeur}>{n.label}</option>
+                      ))}
+                    </select>
+                    {NIVEAUX_ACADEMIQUES.includes(formEdition.niveau) ? (
+                      <select className="border p-2 rounded" value={formEdition.filiere} onChange={(e) => setFormEdition({ ...formEdition, filiere: e.target.value })}>
+                        <option value="">Choisir la filiere</option>
+                        {FILIERES.map((f) => (
+                          <option key={f} value={f}>{f}</option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input className="border p-2 rounded bg-gray-50" value="Filiere non requise" disabled />
+                    )}
                   </div>
                   <div className="flex gap-2">
                     <button onClick={() => enregistrerEdition(ep.id)} className="bg-blue-600 text-white px-3 py-1 rounded">Enregistrer</button>
@@ -134,7 +148,8 @@ export default function Admin() {
               ) : (
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="font-medium">{ep.titre} ({ep.niveau} - {ep.matiere})</p>
+                    <p className="font-medium">{ep.titre}</p>
+                    <p className="text-sm text-gray-600">{LABELS_NIVEAU[ep.niveau] || ep.niveau} - {ep.matiere}{ep.filiere ? " - " + ep.filiere : ""}</p>
                     <p className="text-sm text-gray-500">Par {ep.auteur?.nom} ({ep.auteur?.email})</p>
                     <a href={ep.fichierUrl} target="_blank" className="text-blue-600 text-sm underline">Voir le fichier</a>
                   </div>

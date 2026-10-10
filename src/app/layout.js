@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "examHub",
-  description: "Epreuves, cours, examens et concours du CI au superieur",
+  title: "examHub - HECM",
+  description: "Epreuves, cours, concours et examens des etudiants de HECM",
 };
 
 export default function RootLayout({ children }) {
