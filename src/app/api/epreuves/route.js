@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
+import { getSessionActive } from "@/lib/session";
 import { authOptions } from "@/lib/auth";
 import cloudinary from "@/lib/cloudinary";
 import { VALEURS_NIVEAU, VALEURS_TYPE, NIVEAUX_ACADEMIQUES, FILIERES, filiereValidePourNiveau } from "@/lib/constantes";
@@ -14,7 +14,7 @@ const TYPES_AUTORISES = [
 ];
 
 export async function POST(req) {
-  const session = await getServerSession(authOptions);
+  const session = await getSessionActive();
   if (!session) {
     return Response.json({ erreur: "Vous devez etre connecte" }, { status: 401 });
   }
@@ -61,6 +61,13 @@ export async function POST(req) {
 
   const bytes = await fichier.arrayBuffer();
   const buffer = Buffer.from(bytes);
+
+  const estPdf = buffer.subarray(0, 5).toString("latin1") === "%PDF-";
+  const estDocx = buffer[0] === 0x50 && buffer[1] === 0x4b && buffer[2] === 0x03 && buffer[3] === 0x04;
+  const estDoc = buffer[0] === 0xd0 && buffer[1] === 0xcf && buffer[2] === 0x11 && buffer[3] === 0xe0;
+  if (!estPdf && !estDocx && !estDoc) {
+    return Response.json({ erreur: "Le contenu du fichier ne correspond pas a un PDF ou a un document Word" }, { status: 400 });
+  }
 
   const resultatUpload = await new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(

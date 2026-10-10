@@ -1,9 +1,9 @@
-﻿import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
+import { prisma } from "@/lib/prisma";
+import { getSessionActive } from "@/lib/session";
 import { authOptions } from "@/lib/auth";
 
 export async function DELETE(req, context) {
-  const session = await getServerSession(authOptions);
+  const session = await getSessionActive();
   if (!session || session.user.role !== "SUPER_ADMIN") {
     return Response.json({ erreur: "Acces refuse" }, { status: 403 });
   }

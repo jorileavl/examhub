@@ -1,11 +1,11 @@
-﻿export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
+import { getSessionActive } from "@/lib/session";
 import { authOptions } from "@/lib/auth";
 
 export async function GET() {
-  const session = await getServerSession(authOptions);
+  const session = await getSessionActive();
   if (!session) {
     return Response.json({ erreur: "Non connecte" }, { status: 401 });
   }

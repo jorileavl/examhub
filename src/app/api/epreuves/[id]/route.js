@@ -1,10 +1,10 @@
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
+import { getSessionActive } from "@/lib/session";
 import { authOptions } from "@/lib/auth";
 import { VALEURS_NIVEAU, VALEURS_TYPE, NIVEAUX_ACADEMIQUES, FILIERES, filiereValidePourNiveau } from "@/lib/constantes";
 
 export async function PUT(req, context) {
-  const session = await getServerSession(authOptions);
+  const session = await getSessionActive();
   if (!session || (session.user.role !== "SUPER_ADMIN" && session.user.role !== "ADMIN")) {
     return Response.json({ erreur: "Acces refuse" }, { status: 403 });
   }

@@ -1,4 +1,4 @@
-﻿import CredentialsProvider from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
 import { verifierBlocageConnexion, enregistrerEchecConnexion, reinitialiserTentativesConnexion } from "./rateLimiter";
@@ -47,7 +47,7 @@ export const authOptions = {
       },
     }),
   ],
-  session: { strategy: "jwt" },
+  session: { strategy: "jwt", maxAge: 60 * 60 * 24 * 7 },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {

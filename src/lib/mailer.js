@@ -8,13 +8,17 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+function echapper(texte) {
+  return String(texte).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
 export async function envoyerEmailBienvenue(destinataire, nom) {
   await transporter.sendMail({
     from: `"ExamHECM" <${process.env.EMAIL_USER}>`,
     to: destinataire,
     subject: "Bienvenue sur ExamHECM !",
     html: `<div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto;">
-      <h1 style="color: #008843;">Bienvenue, ${nom} !</h1>
+      <h1 style="color: #008843;">Bienvenue, ${echapper(nom)} !</h1>
       <p>Votre compte ExamHECM a bien ete cree.</p>
       <p>Vous pouvez des maintenant consulter et telecharger les epreuves de votre filiere. Si vous le souhaitez, vous pouvez aussi partager vos propres epreuves pour aider les autres etudiants.</p>
       <p style="margin-top: 24px;"><a href="${process.env.NEXTAUTH_URL}/epreuves" style="background: #008843; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-block;">Voir les epreuves</a></p>
