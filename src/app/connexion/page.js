@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -7,31 +7,40 @@ export default function Connexion() {
   const router = useRouter();
   const [erreur, setErreur] = useState("");
   const [voirMotDePasse, setVoirMotDePasse] = useState(false);
+  const [chargement, setChargement] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (chargement) return;
+    setErreur("");
+    setChargement(true);
+
     const formData = new FormData(e.target);
     const email = formData.get("email");
     const motDePasse = formData.get("motDePasse");
 
-    const res = await signIn("credentials", {
-      email,
-      motDePasse,
-      redirect: false,
-    });
+    try {
+      const res = await signIn("credentials", {
+        email,
+        motDePasse,
+        redirect: false,
+      });
 
-    if (res.error) {
-      setErreur(res.error);
-      return;
-    }
+      if (res.error) {
+        setErreur(res.error);
+        setChargement(false);
+        return;
+      }
 
-    const session = await getSession();
-    if (session?.user?.role === "SUPER_ADMIN") {
-      router.push("/admin");
-    } else if (session?.user?.statutCompte !== "VALIDE") {
-      router.push("/epreuves");
-    } else {
-      router.push("/epreuves");
+      const session = await getSession();
+      if (session?.user?.role === "SUPER_ADMIN") {
+        router.push("/admin");
+      } else {
+        router.push("/epreuves");
+      }
+    } catch {
+      setErreur("Une erreur est survenue. Reessayez.");
+      setChargement(false);
     }
   }
 
@@ -59,7 +68,14 @@ export default function Connexion() {
         <div className="text-right">
           <a href="/mot-de-passe-oublie" className="text-sm text-marque-600 underline">Mot de passe oublie ?</a>
         </div>
-        <button type="submit" className="bg-marque-600 text-white px-4 py-2 rounded w-full hover:bg-marque-700">Se connecter</button>
+        <button
+          type="submit"
+          disabled={chargement}
+          className="bg-marque-600 text-white px-4 py-2 rounded w-full hover:bg-marque-700 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {chargement && <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>}
+          {chargement ? "Connexion..." : "Se connecter"}
+        </button>
         {erreur && <p className="text-sm text-red-600">{erreur}</p>}
       </form>
     </main>
