@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -27,7 +27,7 @@ export default function Inscription() {
     if (res.ok) {
       setMessage("Compte cree ! Connexion automatique...");
       await signIn("credentials", { email, motDePasse, redirect: false });
-      router.push("/publier");
+      router.push("/epreuves");
     } else {
       setMessage(data.erreur || "Erreur lors de la creation du compte");
     }

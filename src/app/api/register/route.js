@@ -40,7 +40,7 @@ export async function POST(req) {
   const hash = await bcrypt.hash(motDePasse, 10);
 
   const user = await prisma.user.create({
-    data: { nom, email, motDePasse: hash, filiere },
+    data: { nom, email, motDePasse: hash, filiere, statutCompte: "VALIDE" },
   });
 
   try {
@@ -49,5 +49,5 @@ export async function POST(req) {
     console.error("Erreur envoi email de bienvenue:", err.message);
   }
 
-  return Response.json({ message: "Compte cree, en attente de validation", userId: user.id });
+  return Response.json({ message: "Compte cree", userId: user.id });
 }

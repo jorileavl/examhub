@@ -19,12 +19,5 @@ export async function POST(req, context) {
     },
   });
 
-  if (statut === "VALIDEE") {
-    await prisma.user.update({
-      where: { id: epreuve.auteurId },
-      data: { statutCompte: "VALIDE" },
-    });
-  }
-
   return Response.json({ message: "Epreuve traitee", epreuve });
 }

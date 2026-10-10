@@ -1,4 +1,4 @@
-﻿import {
+import {
   FILIERES_LICENCE_TERTIAIRES,
   FILIERES_LICENCE_INDUSTRIELLES,
   FILIERES_LICENCE,
@@ -83,7 +83,7 @@ export default function Home() {
           {[
             { lettre: "S", titre: "Recherche par filiere", texte: "Filtrez par filiere, niveau, matiere et annee pour trouver exactement le document dont vous avez besoin.", couleur: "bg-blue-100 text-blue-700" },
             { lettre: "V", titre: "Contenu verifie", texte: "Chaque document est examine par un administrateur avant publication, pour garantir un contenu fiable.", couleur: "bg-indigo-100 text-indigo-700" },
-            { lettre: "P", titre: "Communaute active", texte: "Chaque membre partage ses propres epreuves, pour que la banque de ressources grandisse chaque jour.", couleur: "bg-purple-100 text-purple-700" },
+            { lettre: "P", titre: "Communaute active", texte: "Les membres qui le souhaitent partagent leurs epreuves, pour que la banque de ressources grandisse chaque jour.", couleur: "bg-purple-100 text-purple-700" },
           ].map((item) => (
             <div key={item.lettre} className="group bg-white border border-gray-100 rounded-2xl p-7 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-3 cursor-default">
               <div className={"w-12 h-12 rounded-xl flex items-center justify-center text-2xl font-bold mb-4 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 " + item.couleur}>
@@ -130,7 +130,7 @@ export default function Home() {
 
       <section className="bg-gray-50 py-20 text-center px-6">
         <h2 className="text-3xl font-bold mb-4">Pret a commencer ?</h2>
-        <p className="text-gray-500 mb-8">Creez votre compte, publiez un document, et accedez a toute la banque de ressources.</p>
+        <p className="text-gray-500 mb-8">Creez votre compte gratuitement et accedez a toute la banque de ressources. Vous pouvez aussi partager vos propres documents.</p>
         <div className="flex flex-wrap gap-4 justify-center">
           <a href="/inscription" className="bg-blue-600 text-white px-7 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:scale-105">
             Creer un compte

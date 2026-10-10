@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -29,7 +29,7 @@ export default function Connexion() {
     if (session?.user?.role === "SUPER_ADMIN") {
       router.push("/admin");
     } else if (session?.user?.statutCompte !== "VALIDE") {
-      router.push("/publier");
+      router.push("/epreuves");
     } else {
       router.push("/epreuves");
     }
