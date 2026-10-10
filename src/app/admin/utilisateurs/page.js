@@ -81,7 +81,7 @@ export default function AdminUtilisateurs() {
     <main className="max-w-5xl mx-auto p-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Tous les utilisateurs ({utilisateurs.length})</h1>
-        <a href="/admin" className="text-blue-600 underline text-sm">Retour au tableau de bord</a>
+        <a href="/admin" className="text-marque-600 underline text-sm">Retour au tableau de bord</a>
       </div>
       {erreur && <p className="text-red-600 bg-red-50 p-3 rounded mb-4">{erreur}</p>}
 
@@ -92,7 +92,7 @@ export default function AdminUtilisateurs() {
               <p className="font-medium">
                 {u.nom}
                 {u.role === "SUPER_ADMIN" && <span className="ml-2 text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded">SUPER ADMIN</span>}
-                {u.role === "ADMIN" && <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">ADMIN</span>}
+                {u.role === "ADMIN" && <span className="ml-2 text-xs bg-marque-100 text-marque-700 px-2 py-0.5 rounded">ADMIN</span>}
                 <span className={"ml-2 text-xs px-2 py-0.5 rounded " + badgeCouleur(u.statutCompte)}>{u.statutCompte}</span>
               </p>
               <p className="text-sm text-gray-500">{u.email}{u.filiere ? " - " + u.filiere : ""} - {u.epreuves.length} epreuve(s)</p>
@@ -100,7 +100,7 @@ export default function AdminUtilisateurs() {
             {estSuperAdmin && (
               <div className="flex gap-2 flex-wrap justify-end">
                 {u.role === "UTILISATEUR" && (
-                  <button onClick={() => changerRole(u.id, "ADMIN")} className="bg-blue-100 text-blue-700 px-3 py-1 rounded text-sm">Promouvoir admin</button>
+                  <button onClick={() => changerRole(u.id, "ADMIN")} className="bg-marque-100 text-marque-700 px-3 py-1 rounded text-sm">Promouvoir admin</button>
                 )}
                 {u.role === "ADMIN" && (
                   <button onClick={() => changerRole(u.id, "UTILISATEUR")} className="bg-gray-200 px-3 py-1 rounded text-sm">Retirer admin</button>

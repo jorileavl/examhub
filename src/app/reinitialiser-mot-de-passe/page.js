@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -68,7 +68,7 @@ function FormulaireReinitialisation() {
         className="border p-2 w-full rounded"
         required
       />
-      <button type="submit" disabled={envoi} className="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 disabled:opacity-50">
+      <button type="submit" disabled={envoi} className="bg-marque-600 text-white px-4 py-2 rounded w-full hover:bg-marque-700 disabled:opacity-50">
         {envoi ? "Mise a jour..." : "Changer le mot de passe"}
       </button>
       {message && <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded">{message}</p>}

@@ -7,8 +7,8 @@ export default function Navbar() {
   const estAdminOuPlus = session?.user?.role === "SUPER_ADMIN" || session?.user?.role === "ADMIN";
 
   return (
-    <nav className="border-b px-6 py-4 flex justify-between items-center">
-      <Link href="/" className="font-bold text-lg">ExamHECM</Link>
+    <nav className="border-b-4 border-accent-500 px-6 py-4 flex justify-between items-center">
+      <Link href="/" className="font-bold text-lg text-marque-600">Exam<span className="text-accent-500">HECM</span></Link>
       <div className="flex gap-4 items-center text-sm">
         <Link href="/epreuves">Epreuves</Link>
         {status === "authenticated" ? (
@@ -26,7 +26,7 @@ export default function Navbar() {
         ) : (
           <>
             <Link href="/connexion">Connexion</Link>
-            <Link href="/inscription" className="bg-blue-600 text-white px-3 py-1 rounded">Inscription</Link>
+            <Link href="/inscription" className="bg-marque-600 text-white px-3 py-1 rounded">Inscription</Link>
           </>
         )}
       </div>

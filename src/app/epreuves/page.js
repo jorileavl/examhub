@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useEffect, useState } from "react";
 import { NIVEAUX, FILIERES, LABELS_NIVEAU } from "@/lib/constantes";
 
@@ -76,7 +76,7 @@ export default function Epreuves() {
           </select>
         </div>
         {filtresActifs && (
-          <button onClick={reinitialiser} className="text-sm text-blue-600 underline">Reinitialiser les filtres</button>
+          <button onClick={reinitialiser} className="text-sm text-marque-600 underline">Reinitialiser les filtres</button>
         )}
       </div>
 

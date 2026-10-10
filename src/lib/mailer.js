@@ -1,4 +1,4 @@
-﻿import nodemailer from "nodemailer";
+import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -14,10 +14,10 @@ export async function envoyerEmailBienvenue(destinataire, nom) {
     to: destinataire,
     subject: "Bienvenue sur ExamHECM !",
     html: `<div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto;">
-      <h1 style="color: #1d4ed8;">Bienvenue, ${nom} !</h1>
+      <h1 style="color: #008843;">Bienvenue, ${nom} !</h1>
       <p>Votre compte ExamHECM a bien ete cree.</p>
       <p>Vous pouvez des maintenant consulter et telecharger les epreuves de votre filiere. Si vous le souhaitez, vous pouvez aussi partager vos propres epreuves pour aider les autres etudiants.</p>
-      <p style="margin-top: 24px;"><a href="${process.env.NEXTAUTH_URL}/epreuves" style="background: #1d4ed8; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-block;">Voir les epreuves</a></p>
+      <p style="margin-top: 24px;"><a href="${process.env.NEXTAUTH_URL}/epreuves" style="background: #008843; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-block;">Voir les epreuves</a></p>
       <p style="color: #888; font-size: 13px; margin-top: 32px;">ExamHECM - Epreuves, cours, concours et examens des etudiants de HECM.</p>
     </div>`,
   });
@@ -29,9 +29,9 @@ export async function envoyerEmailReinitialisation(destinataire, lienReinitialis
     to: destinataire,
     subject: "Reinitialisation de votre mot de passe ExamHECM",
     html: `<div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto;">
-      <h1 style="color: #1d4ed8;">Reinitialisation du mot de passe</h1>
+      <h1 style="color: #008843;">Reinitialisation du mot de passe</h1>
       <p>Vous avez demande a reinitialiser votre mot de passe sur ExamHECM.</p>
-      <p style="margin-top: 24px;"><a href="${lienReinitialisation}" style="background: #1d4ed8; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-block;">Choisir un nouveau mot de passe</a></p>
+      <p style="margin-top: 24px;"><a href="${lienReinitialisation}" style="background: #008843; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-block;">Choisir un nouveau mot de passe</a></p>
       <p style="color: #888; font-size: 13px; margin-top: 16px;">Ce lien expire dans 1 heure. Si vous n avez pas demande cette reinitialisation, ignorez cet email.</p>
     </div>`,
   });

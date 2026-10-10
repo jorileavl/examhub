@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 
 export default function MotDePasseOublie() {
@@ -39,11 +39,11 @@ export default function MotDePasseOublie() {
           className="border p-2 w-full rounded"
           required
         />
-        <button type="submit" disabled={envoi} className="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 disabled:opacity-50">
+        <button type="submit" disabled={envoi} className="bg-marque-600 text-white px-4 py-2 rounded w-full hover:bg-marque-700 disabled:opacity-50">
           {envoi ? "Envoi..." : "Envoyer le lien"}
         </button>
         {message && <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded">{message}</p>}
-        <a href="/connexion" className="block text-center text-sm text-blue-600 underline">Retour a la connexion</a>
+        <a href="/connexion" className="block text-center text-sm text-marque-600 underline">Retour a la connexion</a>
       </form>
     </main>
   );

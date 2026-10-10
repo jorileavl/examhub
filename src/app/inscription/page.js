@@ -61,7 +61,7 @@ export default function Inscription() {
             {voirMotDePasse ? "Cacher" : "Voir"}
           </button>
         </div>
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700">Creer mon compte</button>
+        <button type="submit" className="bg-marque-600 text-white px-4 py-2 rounded w-full hover:bg-marque-700">Creer mon compte</button>
         {message && <p className="text-sm text-gray-700">{message}</p>}
       </form>
     </main>

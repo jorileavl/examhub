@@ -132,7 +132,7 @@ export default function Admin() {
                     )}
                   </div>
                   <div className="flex gap-2">
-                    <button onClick={() => enregistrerEdition(ep.id)} className="bg-blue-600 text-white px-3 py-1 rounded">Enregistrer</button>
+                    <button onClick={() => enregistrerEdition(ep.id)} className="bg-marque-600 text-white px-3 py-1 rounded">Enregistrer</button>
                     <button onClick={() => setEdition(null)} className="bg-gray-300 px-3 py-1 rounded">Annuler</button>
                   </div>
                 </div>
@@ -151,7 +151,7 @@ export default function Admin() {
                     <p className="font-medium">{ep.titre}</p>
                     <p className="text-sm text-gray-600">{LABELS_NIVEAU[ep.niveau] || ep.niveau} - {ep.matiere}{ep.filiere ? " - " + ep.filiere : ""}</p>
                     <p className="text-sm text-gray-500">Par {ep.auteur?.nom} ({ep.auteur?.email})</p>
-                    <a href={ep.fichierUrl} target="_blank" className="text-blue-600 text-sm underline">Voir le fichier</a>
+                    <a href={ep.fichierUrl} target="_blank" className="text-marque-600 text-sm underline">Voir le fichier</a>
                   </div>
                   <div className="flex gap-2">
                     <button onClick={() => ouvrirEdition(ep)} className="bg-gray-200 px-3 py-1 rounded">Modifier</button>

@@ -24,3 +24,41 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@theme {
+  --color-marque-50: #F0FAF5;
+  --color-marque-100: #DBF3E7;
+  --color-marque-200: #B8E6CF;
+  --color-marque-300: #80D2A8;
+  --color-marque-400: #40BC7D;
+  --color-marque-500: #00A652;
+  --color-marque-600: #008843;
+  --color-marque-700: #006F37;
+  --color-marque-800: #005329;
+  --color-marque-900: #003A1D;
+
+  --color-accent-50: #FEF1F2;
+  --color-accent-100: #FCDFE0;
+  --color-accent-200: #FABFC2;
+  --color-accent-300: #F68D92;
+  --color-accent-400: #F2545B;
+  --color-accent-500: #ED1B24;
+  --color-accent-600: #C2161E;
+  --color-accent-700: #9F1218;
+  --color-accent-800: #760E12;
+  --color-accent-900: #53090D;
+}
+
+:root {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light;
+    --background: #ffffff;
+    --foreground: #171717;
+  }
+}

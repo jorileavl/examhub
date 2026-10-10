@@ -70,7 +70,7 @@ export default function Publier() {
         <input name="matiere" placeholder="Matiere" className="border p-2 w-full rounded" required />
         <input name="annee" type="number" placeholder="Annee" className="border p-2 w-full rounded" required />
         <input name="fichier" type="file" className="border p-2 w-full rounded" required accept=".pdf,.doc,.docx" />
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700">Envoyer pour validation</button>
+        <button type="submit" className="bg-marque-600 text-white px-4 py-2 rounded w-full hover:bg-marque-700">Envoyer pour validation</button>
         {message && <p className="text-sm text-gray-700">{message}</p>}
       </form>
 
