@@ -51,6 +51,7 @@ model User {
   role              Role          @default(UTILISATEUR)
   statutCompte      StatutCompte  @default(EN_ATTENTE)
   motifRejet        String?
+  filiere           String?
   tokenReset        String?
   tokenResetExpire  DateTime?
   epreuves          Epreuve[]
